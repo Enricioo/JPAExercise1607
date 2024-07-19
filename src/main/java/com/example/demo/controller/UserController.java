@@ -30,24 +30,24 @@ public class UserController {
 		return userRepository.findAll();
 	}
 
-	@GetMapping("/minorenni")
+	@GetMapping("/users/minorenni")
 	public List<User> getUserByEtaLessThan() {
 		return userRepository.findByEtaLessThan(18);
 	}
 
-	@GetMapping("/{name}")
+	@GetMapping("/users/user/{name}")
 	public List<User> getUserByName(@PathVariable String name) {
 		return userRepository.findByName(name);
 	}
 
-	@GetMapping("/{name}/{lastname}")
+	@GetMapping("/users/{name}/{lastname}")
 	public List<User> getUserByNameAndLastname(@PathVariable String name, @PathVariable String lastname) {
 		return userRepository.findByNameAndLastname(name, lastname);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/users/id/{id}")
 	public User getUserById(@PathVariable Long id) {
-		return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+		return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Id not found"));
 	}
 
 	@PostMapping
@@ -55,7 +55,7 @@ public class UserController {
 		return userRepository.save(user);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/users/{id}")
 	public User updateUser(@PathVariable Long id, @RequestBody User userDetails) {
 		User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 		user.setName(userDetails.getName());
@@ -64,7 +64,7 @@ public class UserController {
 		return userRepository.save(user);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/users/{id}")
 	public void deleteCategory(@PathVariable Long id) {
 		User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 		userRepository.delete(user);
